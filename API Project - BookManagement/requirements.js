@@ -31,3 +31,7 @@
 //-> to get specific publication 
 //-> to get a list of publications based on book
 
+// POST request
+// 1. Add new book
+// 2. Add new publication
+// 3. Add new author

@@ -1,8 +1,14 @@
 const express = require("express");
+const app = express();
+
+// Body parser
+var bodyParser = require("body-parser");
+app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.json());
 
 // DATABASE
 const database = require("./database");
-const app = express();
+
 
 //GET ALL BOOKS
 /*
@@ -15,6 +21,7 @@ Methods         GET
 app.get("/", (req,res)=>{
     return res.json({books: database.books});
 });
+
 
 //GET A SPECIFIC BOOK
 /*
@@ -56,10 +63,10 @@ app.get("/c/:category", (req,res)=>{
 
 //GET A SPECIFIC BOOK BASED ON LANGUAGES
 /*
-Route           /c
+Route           /l
 Description     Get a list of books based on languages
 Access          Public
-Parameter       category
+Parameter       language
 Methods         GET
 */
 app.get("/l/:language", (req,res)=>{
@@ -134,7 +141,7 @@ Parameter       NONE
 Methods         GET
 */
 app.get("/publications", (req,res)=>{
-    return res.json({authors: database.publication});
+    return res.json({authors: database.publications});
 });
 
 
@@ -147,9 +154,8 @@ Parameter       id
 Methods         GET
 */
 app.get("/publications/:id", (req,res)=>{
-    const getSpecifiPublications = database.publication.filter(
-        (publication) => publication.id === parseInt(req.params.id)
-        
+    const getSpecifiPublications = database.publications.filter(
+        (publication) => publication.id === parseInt(req.params.id)        
     );
     if (getSpecifiPublications.length === 0) {
         return res.json({error: `No publications in the ID: ${req.params.id}`});
@@ -167,13 +173,85 @@ Parameter       isbn
 Methods         GET
 */
 app.get("/publications/books/:isbn", (req,res)=>{
-    const getSpecificAuthor = database.publication.filter(
+    const getSpecificAuthor = database.publications.filter(
         (publication) => publication.books.includes(req.params.isbn)        
     );
     if (getSpecificAuthor.length === 0) {
         return res.json({error: `No publications availabe for the book: ${req.params.isbn}`});
     }
     return res.json({author: getSpecificAuthor});
+});
+
+
+// ADD NEW BOOK 
+/*
+Route           /book/new
+Description     Add new book
+Access          Public
+Parameter       NONE
+Methods         POST
+*/ 
+
+app.post("/book/new", (req,res) => {
+    const newBook = req.body;
+    const existingBook = database.books.filter(
+        (book) => book.ISBN === newBook.ISBN
+    );
+    if (existingBook.length === 0){
+        database.books.push(newBook);
+    }
+    else {
+        return res.json({"Error": "Book with the same ISBN number exists"});
+    }
+    return res.json({updatedBooks: database.books});
+});
+
+
+// ADD NEW AUTHOR
+/*
+Route           /author/new
+Description     Add new author
+Access          Public
+Parameter       NONE
+Methods         POST
+*/ 
+
+app.post("/author/new", (req,res) => {
+    const newAuthor = req.body;
+    const existingAuthor = database.authors.filter(
+        (author) => author.id === newAuthor.id
+    );
+    if (existingAuthor.length === 0){
+        database.authors.push(existingAuthor);
+    }
+    else {
+        return res.json({"Error": "Author with the same ID exist"});
+    }
+    return res.json({updatedAuthor: database.authors});
+});
+
+
+// ADD NEW PUBLICATION
+/*
+Route           /publication/new
+Description     Add new publication
+Access          Public
+Parameter       NONE
+Methods         POST
+*/ 
+
+app.post("/publication/new", (req,res) => {
+    const newPublication = req.body;
+    const existingPublication = database.publications.filter(
+        (publication) => publication.id === newPublication.id
+    );
+    if (existingPublication.length === 0){
+        database.publications.push(newPublication);
+    }
+    else{
+        return res.json({"Error": "Publicatin with the same ID exist"});
+    }
+    return res.json({updatedPublication: database.publications});
 });
 
 

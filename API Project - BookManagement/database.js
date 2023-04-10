@@ -50,7 +50,7 @@ const authors = [
     }
 ];
   
-const publication = [
+const publications = [
     {
       id: 1,
       name: "Pearson",
@@ -63,4 +63,4 @@ const publication = [
     }
 ];
   
-module.exports = {books, authors, publication};
+module.exports = {books, authors, publications};
