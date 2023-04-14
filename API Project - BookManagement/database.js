@@ -6,7 +6,7 @@ const books = [
       language: "english",
       numPage: 250,
       author: [1,2],
-      publications: [1],
+      publications: 1,
       category: ["tech", "programming", "education"]
     },
     {
@@ -16,7 +16,7 @@ const books = [
         language: "deutsch",
         numPage: 1500,
         author: [1],
-        publications: [2],
+        publications: 2,
         category: ["greek", "history", "lore","myths"]
     },
     {
@@ -26,7 +26,7 @@ const books = [
         language: "italian",
         numPage: 550,
         author: [3],
-        publications: [1],
+        publications: 1,
         category: ["tech", "programming", "education"]
     }
 
