@@ -2,7 +2,6 @@
 
 //Book management company
 
-// ---------GET request
 //BOOKS
 //ISBN, title, pub date, language, num page, author[], publication[], category[]
 
@@ -12,6 +11,8 @@
 //PUBLICATIONS
 //id, name, books[]
 
+
+// ---------GET request
 
 //BOOKS
 //WE NEED AN API FOR
@@ -34,15 +35,13 @@
 
 // ---------POST request
 // 1. Add new book
-// 2. Add new publication
-// 3. Add new author
+// 2. Add new author
+// 3. Add new publication
 
 // ---------PUT request
-// Update the specified book in the given publication
-//      -update publication db 
-//          1.Add the book in given publication
-//          2.Remove the given book(if exists) in other publications
-//      -update book db
+// 1. Update book on isbn 
+// 2. Update the authors in a book based on isbn
+// 3. Update the specified book in the given publication and update publication in the book
 
 // ---------DELETE request
 // 1. Delete a book
